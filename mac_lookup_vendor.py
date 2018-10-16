@@ -37,6 +37,6 @@ if __name__ == '__main__':
       
 
 print("Length of dics is: {}".format(len(sps)))
-with open("yaml_mac.txt, "w") as f:
+with open("yaml_mac.txt", "w") as f:
     yaml.dump(sps, f, default_flow_style=False)
 

@@ -2,7 +2,7 @@ import urllib.request as urllib2
 import json
 import codecs
 import yaml
-from time import sleep
+import re
 
 '''
 time.sleep only for occasion if macvendors API not able to handle
@@ -11,6 +11,12 @@ long list of mac-address. Not tested for long lists.
 #API base url,you can also use https if you need
 url = "http://macvendors.co/api/"
 
+#function gets mac address in line
+#mandatory in line should be 1 mac address
+def get_mac_from_line(mac_line):
+    for mac in mac_line.split():
+        if re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", mac.lower()):
+            return mac
 
 sps = {}
 with open('mac_list.txt') as f:
@@ -18,7 +24,7 @@ with open('mac_list.txt') as f:
     mac_list = []
     for mac in txt.split('\n'):
         if mac:
-            mac_list.append(mac[0:17].strip())
+            mac_list.append(get_mac_from_line(mac))
 print("Number of MAC's: {}".format(len(mac_list)))
 for i in mac_list:
     request = urllib2.Request(url+i, headers={'User-Agent' : "API Browser"})

@@ -11,8 +11,8 @@ long list of mac-address. Not tested for long lists.
 #API base url,you can also use https if you need
 url = "http://macvendors.co/api/"
 
-#function gets mac address in line
-#mandatory in line should be 1 mac address
+#function gets mac address if it in line
+#regex returns first match of mac. so no more than 1 mac in line.
 def get_mac_from_line(mac_line):
     for mac in mac_line.split():
         if re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", mac.lower()):
